@@ -1,0 +1,92 @@
+<%- include("partials/header") %>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-full">
+      <p class="eyebrow">1-to-1 coaching for professionals</p>
+      <h1>Elevate your career and leadership with tailored coaching</h1>
+      <p class="lead">
+        Practical support for job search, career growth, leadership development,
+        and corporate coaching programmes.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn" href="/services">Explore Services</a>
+        <a class="btn btn-outline" href="/contact">Work With Me</a>
+      </div>
+
+      <div class="stats">
+        <div><strong>1000+</strong><span>professionals supported</span></div>
+        <div><strong>35+</strong><span>countries reached</span></div>
+        <div><strong>€5M+</strong><span>career value created</span></div>
+      </div>
+    </div>
+  </div>
+</section>>
+
+<section class="section">
+  <div class="container">
+    <h2>Services</h2>
+
+    <div class="services-grid">
+      <% services.forEach(service => { %>
+        <div class="card service-card">
+          <div>
+            <h3><%= service.title %></h3>
+            <p><%= service.summary %></p>
+            <p><strong><%= service.duration %> mins</strong> · <%= service.price %></p>
+          </div>
+
+          <a class="btn service-book-btn" href="/services#booking-form?service=<%= service.slug %>">
+            Book
+          </a>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<section class="section alt">
+  <div class="container two-col">
+    <div>
+      <h2>About</h2>
+      <p>
+        I help professionals clarify their direction, strengthen their positioning,
+        and move with confidence into their next role or leadership chapter.
+      </p>
+      <a class="btn btn-outline" href="/about">Read More</a>
+    </div>
+    <div class="placeholder-image">Coach portrait / brand image</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>Client Reviews</h2>
+    <div class="card-grid">
+      <% testimonials.forEach(item => { %>
+        <div class="card">
+          <p>“<%= item.text %>”</p>
+          <h4><%= item.name %></h4>
+          <span><%= item.role %></span>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="container">
+    <h2>Recent Articles</h2>
+    <div class="card-grid">
+      <% articles.forEach(article => { %>
+        <div class="card">
+          <span class="tag"><%= article.category %></span>
+          <h3><%= article.title %></h3>
+          <p><%= article.excerpt %></p>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<%- include("partials/footer") %>

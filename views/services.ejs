@@ -1,0 +1,146 @@
+<%- include=""("partials/header") %>
+
+	<section class="page-header">
+		<div class="container">
+			<p class="eyebrow">Coaching services</p>
+			<h1>Find the right support for your next step</h1>
+			<p class="lead">
+				Choose from focused consultations, interview preparation, complete job-search support,
+				or premium executive coaching. Each service is designed to give practical, personalised help.
+			</p>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="container">
+			<% if (success) { %>
+			<div class="alert success">
+				Your booking has been submitted and added to Google Calendar.
+			</div>
+			<% } %>
+
+			<div class="services-intro">
+				<h2>Available Services</h2>
+				<p>
+					Explore the coaching options below and book the one that best matches your goals.
+					Clicking <strong>Book</strong> will jump to the booking form and preselect that service.
+				</p>
+			</div>
+
+			<div class="services-grid">
+				<% services.forEach(service => { %>
+				<div class="card service-card">
+					<div>
+						<h3>
+							<%= service.title %>
+						</h3>
+						<p>
+							<%= service.summary %>
+						</p>
+
+						<% if (service.slug === "career-consultation") { %>
+						<p>
+							Ideal if you need quick expert guidance on career direction, CV improvement,
+							role targeting, or your immediate next move.
+						</p>
+						<% } %>
+
+						<% if (service.slug === "interview-prep") { %>
+						<p>
+							Best for candidates preparing for important interviews who want structured
+							practice, sharper answers, and confident delivery.
+						</p>
+						<% } %>
+
+						<% if (service.slug === "job-search-package") { %>
+						<p>
+							A broader coaching package for professionals who want support across several
+							stages of the search, from strategy to positioning and follow-through.
+						</p>
+						<% } %>
+
+						<% if (service.slug === "executive-package") { %>
+						<p>
+							Designed for senior professionals and leaders who want premium coaching around
+							positioning, visibility, executive presence, and long-term career growth.
+						</p>
+						<% } %>
+
+						<p class="service-meta">
+							<strong>
+								<%= service.duration %> mins
+							</strong> · <%= service.price %>
+						</p>
+					</div>
+
+					<a
+					  class="btn service-book-btn"
+					  href="#booking-form"
+					  onclick="selectService('"
+						<%= service.slug %>')"
+						>
+						Book
+					</a>
+				</div>
+				<% }) %>
+			</div>
+		</div>
+	</section>
+
+	<section class="section alt">
+		<div class="container booking-wrap">
+			<div>
+				<p class="eyebrow">Booking</p>
+				<h2>Request your session</h2>
+				<p>
+					Choose your service, select a preferred date and time, and submit your request.
+					A Google Calendar event will be created automatically.
+				</p>
+				<p>
+					You can also use this form to share any background information that will help prepare
+					for the session.
+				</p>
+			</div>
+
+			<form id="booking-form" class="booking-form" action="/book" method="POST">
+				<input type="text" name="name" placeholder="Full name" required="" />
+				<input type="email" name="email" placeholder="Email address" required="" />
+
+				<select id="serviceSelect" name="serviceSlug" required="">
+					<option value="">Select a service</option>
+					<% services.forEach(service => { %>
+					<option
+					  value=""
+						<%= service.slug %>"
+						<%= selectedService === service.slug ? "selected" : "" %>
+						>
+						<%= service.title %> — <%= service.duration %> mins
+					</option>
+					<% }) %>
+				</select>
+
+				<input type="date" name="date" required="" />
+				<input type="time" name="time" required="" />
+
+				<textarea
+				  name="notes"
+				  rows="5"
+				  placeholder="Anything you would like to share before the session?"
+      ></textarea>
+
+				<button class="btn" type="submit">Book in Google Calendar</button>
+			</form>
+		</div>
+	</section>
+
+	<script>
+		function selectService(serviceSlug) {
+		const select = document.getElementById("serviceSelect");
+		if (select) {
+		select.value = serviceSlug;
+		document.getElementById("booking-form").scrollIntoView({ behavior: "smooth" });
+		}
+		}
+	</script>
+
+	<%- include=""("partials/footer") %>

@@ -3,11 +3,15 @@ const path = require("path");
 const dotenv = require("dotenv");
 const { google } = require("googleapis");
 const { v4: uuidv4 } = require("uuid");
+const fs = require("fs");
+
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -133,7 +137,11 @@ app.get("/about", (req, res) => {
 });
 
 app.get("/services", (req, res) => {
-  res.render("services", { services, success: req.query.success });
+  res.render("services", {
+    services,
+    success: req.query.success,
+    selectedService: req.query.selected || ""
+  });
 });
 
 app.get("/corporate", (req, res) => {
