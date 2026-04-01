@@ -1,0 +1,59 @@
+<%- include("partials/header") %>
+
+<section class="page-header">
+  <div class="container">
+    <h1>Coaching Services</h1>
+    <p>Choose a service and request a time directly through the booking form.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <% if (success) { %>
+      <div class="alert success">
+        Your booking has been submitted and added to Google Calendar.
+      </div>
+    <% } %>
+
+    <div class="card-grid">
+      <% services.forEach(service => { %>
+        <div class="card">
+          <h3><%= service.title %></h3>
+          <p><%= service.summary %></p>
+          <p><strong><%= service.duration %> mins</strong> · <%= service.price %></p>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="container booking-wrap">
+    <div>
+      <h2>Request Booking</h2>
+      <p>Pick a service, date, and time. A Google Calendar event will be created automatically.</p>
+    </div>
+
+    <form class="booking-form" action="/book" method="POST">
+      <input type="text" name="name" placeholder="Full name" required />
+      <input type="email" name="email" placeholder="Email address" required />
+
+      <select name="serviceSlug" required>
+        <option value="">Select a service</option>
+        <% services.forEach(service => { %>
+          <option value="<%= service.slug %>">
+            <%= service.title %> — <%= service.duration %> mins
+          </option>
+        <% }) %>
+      </select>
+
+      <input type="date" name="date" required />
+      <input type="time" name="time" required />
+      <textarea name="notes" rows="5" placeholder="Anything you would like to share before the session?"></textarea>
+
+      <button class="btn" type="submit">Book in Google Calendar</button>
+    </form>
+  </div>
+</section>
+
+<%- include("partials/footer") %>
